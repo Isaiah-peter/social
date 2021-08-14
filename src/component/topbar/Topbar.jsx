@@ -14,24 +14,25 @@ function Topbar() {
         </div>
       </div>
       <div className="right">
-        <div className="topbarlink">
-          <span className="topbarlink">homepage</span>
-          <span className="topbarlink">timeline</span>
+        <div className="topbarlinkContainer">
+          <span className="topbarlink">Homepage</span>
+          <span className="topbarlink">Timeline</span>
         </div>
         <div className="topbaricon">
           <div className="topbariconitem">
-            <Person />
+            <Person className='icons' />
             <span className="iconBadge">2</span>
           </div>
           <div className="topbariconitem">
-            <Chat />
+            <Chat className='icons' />
             <span className="iconBadge">2</span>
           </div>
           <div className="topbariconitem">
-            <Notifications />
+            <Notifications className='icons' />
             <span className="iconBadge">2</span>
           </div>
         </div>
+        <img src='./asset/person/1.jpg' alt='user' className='topbarimage' />
       </div>
     </div>
   )
