@@ -1,3 +1,50 @@
 .rightbar{
     flex: 3.5;
 }
+
+.rightwrapper{
+    padding: 20px 20px 0 0;
+}
+
+.title{
+    font-size: 15px;
+}
+
+.list{
+    list-style: none;
+    margin-top: 10px;
+}
+
+.items{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.imageContainer{
+    position: relative;
+    margin-right: 10px;
+}
+
+.userimage{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.greenbagde{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: green;
+    border: 2px solid white;
+}
+
+.username{
+    font-size: 18px;
+    font-weight: 500; 
+    
+}
