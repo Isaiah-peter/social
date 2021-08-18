@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #eeeaea;
+    background-color: #f0f2f5;
 }
 
 .loginwrapper{
@@ -18,13 +18,13 @@
 }
 
 .appname{
-   color: #0ba0da;
-   font-size: 60px;
-   font-weight: 600;
+   color: #1775ee;
+   font-size: 50px;
+   font-weight: 800;
 }
 .desc{
-    font-size: 30px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 400;
 }
 
 .loginright {
@@ -52,10 +52,14 @@
     font-size: 18px;
 }
 
+.inputemail:focus{
+   outline: none;
+}
+
 .loginbutton {
     width: 90%;
     color: #fff;
-    background-color: #0058e6;
+    background-color: #1775ee;
     border: none;
     outline: none;
     padding: 12px 4px;
@@ -63,18 +67,19 @@
     margin: 15px;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .register {
    margin:auto auto ;
    padding: 12px 4px;
-   width: 40%;
+   width: 50%;
    color: #fff;
-    background-color: #35c708;
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-
+   background-color: #42b72a;
+   border: none;
+   outline: none;
+   border-radius: 8px;
+   font-size: 16px;
+   font-weight: 600;
+   cursor: pointer;
 }

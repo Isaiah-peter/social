@@ -1,4 +1,4 @@
-import { ThumbsUpDown, ThumbUp } from '@material-ui/icons'
+
 import './Post.css'
 
 function Post() {

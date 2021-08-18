@@ -1,5 +1,6 @@
 import './sidebar.css'
 import { Chat } from '@material-ui/icons'
+import CloseFriend from '../closeFriend/CloseFriend'
 
 function Sidebar() {
   return (
@@ -13,35 +14,7 @@ function Sidebar() {
         </ul>
         <hr className="sidebarhr" />
         <ul className="friendList">
-          <li className="friend">
-            <img src="/asset/person/2.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          <li className="friend">
-            <img src="/asset/person/3.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          <li className="friend">
-            <img src="/asset/person/4.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          <li className="friend">
-            <img src="/asset/person/5.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          <li className="friend">
-            <img src="/asset/person/6.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          <li className="friend">
-            <img src="/asset/person/2.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          <li className="friend">
-            <img src="/asset/person/2.jpg" alt="" className="profilepicture" />
-            <span className="username">jane</span>
-          </li>
-          
+         <CloseFriend /> 
         </ul>
       </div>
 

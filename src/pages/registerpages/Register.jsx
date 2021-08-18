@@ -5,7 +5,7 @@ function Register() {
     <div className='login'>
       <div className="loginwrapper">
         <div className="loginleft">
-          <h1 className="appname">Social</h1>
+          <h1 className="appname">SocialGround</h1>
           <h4 className="desc">Connect with friends everywhere</h4>
         </div>
         <div className="loginright">

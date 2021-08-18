@@ -48,3 +48,53 @@
     font-weight: 500; 
     
 }
+
+.rightbartitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.info {
+    margin-bottom: 30px;
+}
+
+.infoitem {
+    margin-bottom: 10px;
+}
+
+.infokey {
+  font-weight: 500;
+  margin-right: 15px;
+  color: #555;
+}
+
+.infovalue {
+    font-weight: 300;
+    text-transform: capitalize;
+}
+
+.following {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+}
+
+.followingdetail{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.followingdetailimg {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.followingdetailname {
+    text-transform: capitalize;
+}
