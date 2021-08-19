@@ -13,9 +13,9 @@ function Home() {
  
    const getPost = async () => {
      try {
-       const res = await axios.get("http://Localhost:9900/timeline", {
+       const res = await axios.get("http://Localhost:8080/user", {
          headers: {
-           Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjUsIklzQWRtaW4iOmZhbHNlLCJleHAiOjE2MzUxNTM2Nzl9.t7EezkAD909hOML9-03KHUIP2Cl2jPJkC8RGNb_SbvM"
+           Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjIsIklzQWRtaW4iOmZhbHNlLCJleHAiOjE2MzUzMjI2MzV9.DxTSqbAdHQrbSu7Bws1ClJVeyBZ14Z1WEbdnyPMLvQc"
          }
        }
        )
