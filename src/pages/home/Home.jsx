@@ -13,7 +13,7 @@ function Home() {
  
    const getPost = async () => {
      try {
-       const res = await axios.get("http://Localhost:8080/user", {
+       const res = await axios.get("http://Localhost:8000/user", {
          headers: {
            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjIsIklzQWRtaW4iOmZhbHNlLCJleHAiOjE2MzUzMjI2MzV9.DxTSqbAdHQrbSu7Bws1ClJVeyBZ14Z1WEbdnyPMLvQc"
          }
