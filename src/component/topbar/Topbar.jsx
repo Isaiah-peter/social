@@ -1,19 +1,28 @@
-import "./topbar.css"
-import { Search, Person, Chat, Notifications } from '@material-ui/icons'
-import { Link } from "react-router-dom"
+import "./topbar.css";
+import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Topbar() {
+  const { user } = useContext(AuthContext);
   return (
     <div className="topbarContainer">
       <div className="left">
         <span className="logo">
-          <Link to='/' className='link' >SocialGround</Link>
+          <Link to="/" className="link">
+            SocialGround
+          </Link>
         </span>
       </div>
       <div className="center">
         <div className="searchbar">
           <Search />
-          <input type="text" placeholder='search post, friend' className="searchinput" />
+          <input
+            type="text"
+            placeholder="search post, friend"
+            className="searchinput"
+          />
         </div>
       </div>
       <div className="right">
@@ -23,22 +32,28 @@ function Topbar() {
         </div>
         <div className="topbaricon">
           <div className="topbariconitem">
-            <Person className='icons' />
+            <Person className="icons" />
             <span className="iconBadge">2</span>
           </div>
           <div className="topbariconitem">
-            <Chat className='icons' />
+            <Chat className="icons" />
             <span className="iconBadge">2</span>
           </div>
           <div className="topbariconitem">
-            <Notifications className='icons' />
+            <Notifications className="icons" />
             <span className="iconBadge">2</span>
           </div>
         </div>
-        <img src='/asset/person/1.jpg' alt='user' className='topbarimage' />
+        <Link to={{ pathname: `profile/${user.user.ID}` }}>
+          <img
+            src={user.user.profilepicture || "/asset/noAvatar.png"}
+            alt="user"
+            className="topbarimage"
+          />
+        </Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default Topbar
+export default Topbar;

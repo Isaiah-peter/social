@@ -1,59 +1,83 @@
-import Feed from '../../component/feed/Feed'
-import Rightbar from '../../component/rightbar/Rightbar'
-import Sidebar from '../../component/sidebar/Sidebar'
-import Topbar from '../../component/topbar/Topbar'
-import './profile.css'
-import axios from 'axios'
-import { useEffect } from 'react'
+import Feed from "../../component/feed/Feed";
+import Rightbar from "../../component/rightbar/Rightbar";
+import Sidebar from "../../component/sidebar/Sidebar";
+import Topbar from "../../component/topbar/Topbar";
+import "./profile.css";
+import axios from "axios";
+import { useEffect, useState, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { AuthContext } from "../../component/context/AuthContext";
 
 function Profile() {
+  const param = useParams();
+  const [users, setUser] = useState([]);
+  const [follower, setFollower] = useState([]);
+  const { user } = useContext(AuthContext);
 
-  useEffect(()=>{
-   getPost()
-  },[])
+  const id = param.id;
 
-  const getPost = async () => {
-    try {
-      const res = await axios.get("http://Localhost:9900/timeline", {
-        headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjUsIklzQWRtaW4iOmZhbHNlLCJleHAiOjE2MzUxNTM2Nzl9.t7EezkAD909hOML9-03KHUIP2Cl2jPJkC8RGNb_SbvM"
-        }
-      }
-      )
+  useEffect(() => {
+    getUser();
+    getFollower();
+  }, []);
 
-      console.log(res)
+  const getUser = async () => {
+    const res = await axios.get(`http://Localhost:8000/user/${param.id}`, {
+      headers: {
+        Authorization: `Bearer ${user.token} `,
+      },
+    });
+    setUser(res.data);
+  };
 
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
+  const getFollower = async () => {
+    const res = await axios.get(`http://Localhost:8000//follower/${id}`, {
+      headers: {
+        Authorization: `Bearer ${user.token} `,
+      },
+    });
+    setFollower(res.data);
+  };
+  console.log(follower);
 
-  
   return (
     <>
       <Topbar />
-      <div className='profile'>
+      <div className="profile">
         <Sidebar />
         <div className="profileright">
           <div className="profiletop">
             <div className="profilecover">
-              <img src="/asset/post/10.jpg" alt="cover" className='profileCoverImg' />
-              <img src="/asset/person/1.jpg" alt="cover" className='profileUserImg' />
+              <img
+                src={
+                  users.coverpicture ? user.coverpicture : "/asset/post/6.jpg"
+                }
+                alt="cover"
+                className="profileCoverImg"
+              />
+              <img
+                src={
+                  users.profilepicture
+                    ? user.profilepicture
+                    : "/asset/noAvatar.png"
+                }
+                alt="cover"
+                className="profileUserImg"
+              />
             </div>
             <div className="profileinfo">
-              <h4 className="profileinfoname">jane smith</h4>
-              <h6 className="profileinfodesc">welcome</h6>
+              <h4 className="profileinfoname">{users.username}</h4>
+              <h6 className="profileinfodesc">{users.description}</h6>
             </div>
           </div>
           <div className="profilebottom">
-            <Feed />
-            <Rightbar profile />
+            <Feed id={param.id} />
+            <Rightbar user={users} follower={follower} />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

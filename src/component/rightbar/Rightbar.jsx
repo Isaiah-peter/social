@@ -1,17 +1,19 @@
+import HomeRightBar from "../homerightbar/homerightbar";
+import ProfileRightBar from "../profilerightbar/profilerightbar";
+import "./rightbar.css";
 
-import HomeRightBar from '../homerightbar/homerightbar'
-import ProfileRightBar from '../profilerightbar/profilerightbar'
-import './rightbar.css'
-
-function Rightbar({profile}) {
-
+function Rightbar({ user, follower }) {
   return (
-    <div className='rightbar'>
+    <div className="rightbar">
       <div className="rightwrapper">
-        {profile ? <ProfileRightBar />: <HomeRightBar />}
+        {user ? (
+          <ProfileRightBar user={user} follower={follower} />
+        ) : (
+          <HomeRightBar />
+        )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Rightbar
+export default Rightbar;

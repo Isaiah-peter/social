@@ -1,26 +1,35 @@
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import './App.css';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import Profile from './pages/profile/Profile';
-import Register from './pages/registerpages/Register';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
+import { useContext, useState } from "react";
+import "./App.css";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Profile from "./pages/profile/Profile";
+import Register from "./pages/registerpages/Register";
+import { AuthContext } from "./component/context/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <Router>
       <Switch>
-        <Route exact path='/' >
-          <Home />
-        </Route>
-        <Route path='/register'>
+        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+        <Route path="/register">
           <Register />
         </Route>
-        <Route path='/login'>
-          <Login />
+        <Route exact path="/">
+          <Home />
         </Route>
-        <Route path='/:username' >
-          <Profile />
-        </Route>
+        {user && (
+          <Route path="/profile/:id">
+            <Profile />
+          </Route>
+        )}
       </Switch>
     </Router>
   );

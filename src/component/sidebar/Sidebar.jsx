@@ -1,25 +1,24 @@
-import './sidebar.css'
-import { Chat } from '@material-ui/icons'
-import CloseFriend from '../closeFriend/CloseFriend'
+import "./sidebar.css";
+import { Chat } from "@material-ui/icons";
+import CloseFriend from "../closeFriend/CloseFriend";
 
 function Sidebar() {
   return (
-    <div className='sidebar'>
+    <div className="sidebar">
       <div className="wrapper">
         <ul className="list">
           <li className="items">
-            <Chat className='icon' />
+            <Chat className="icon" />
             <span className="text">Chat</span>
           </li>
         </ul>
         <hr className="sidebarhr" />
         <ul className="friendList">
-         <CloseFriend /> 
+          <CloseFriend />
         </ul>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
