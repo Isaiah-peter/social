@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Post.css";
 import * as timeago from "timeago.js";
@@ -8,7 +8,6 @@ import { AuthContext } from "../context/AuthContext";
 const Post = ({ p }) => {
   const [users, setUser] = useState([]);
   const [like, setLike] = useState(0);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
   useEffect(() => {
     getUser();
@@ -28,7 +27,7 @@ const Post = ({ p }) => {
     const postid = {
       post_id: p.ID,
     };
-    const res = await axios.post(`http://Localhost:8000/like`, postid, {
+    await axios.post(`http://Localhost:8000/like`, postid, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -64,7 +63,7 @@ const Post = ({ p }) => {
         </div>
         <div className="postcenter">
           <span className="posttext">{p.description}</span>
-          <img src={PF + p.image} alt="" className="postimage" />
+          <img src={p.image} alt="" className="postimage" />
         </div>
         <div className="postbuttom">
           <div className="left">

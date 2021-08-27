@@ -22,7 +22,11 @@ function Feed({ id }) {
           },
         }
       );
-      setPosts(res.data);
+      setPosts(
+        res.data.sort((p1, p2) => {
+          return new Date(p2.CreatedAt) - new Date(p1.CreatedAt);
+        })
+      );
     } catch (err) {
       console.log(err);
     }

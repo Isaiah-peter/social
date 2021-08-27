@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./App.css";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
@@ -18,7 +18,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+        <Route path="/login">
+          {user && user.status ? <Redirect to="/" /> : <Login />}
+        </Route>
         <Route path="/register">
           <Register />
         </Route>

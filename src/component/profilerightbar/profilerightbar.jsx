@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ProfileRightBar = ({ user, follower }) => {
   return (
@@ -23,14 +22,16 @@ const ProfileRightBar = ({ user, follower }) => {
       <div className="following">
         {follower.map((f) => {
           return (
-            <div key={f.ID} className="followingdetail">
-              <img
-                src={f.profilepicture || "/asset/person/6.jpg"}
-                alt=""
-                className="followingdetailimg"
-              />
-              <span className="followingdetailname">{f.username}</span>
-            </div>
+            <Link to={`/profile/${f.ID}`} className="link">
+              <div key={f.ID} className="followingdetail">
+                <img
+                  src={f.profilepicture || "/asset/person/6.jpg"}
+                  alt=""
+                  className="followingdetailimg"
+                />
+                <span className="followingdetailname">{f.username}</span>
+              </div>
+            </Link>
           );
         })}
       </div>

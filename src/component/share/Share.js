@@ -4,55 +4,64 @@ import { AuthContext } from "../context/AuthContext";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import storage from "../../firebase";
+import storage from "../../base";
 
 function Share() {
   const { user } = useContext(AuthContext);
   const [file, setFile] = useState(null);
   const [uploaded, setUpload] = useState(0);
+  const [image, setImage] = useState(null);
+
   const desc = useRef();
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+
+    const storageRef = storage.ref(
+      storage.getStorage(),
+      "images/" + Date.now() + file.name
+    );
+    const uploadTask = storage.uploadBytesResumable(storageRef, file, metadata);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        storage.getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setUpload(uploaded + 1);
+          setImage(downloadURL);
+        });
+      }
+    );
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const newPost = {
       user_id: user.user.ID,
       description: desc.current.value,
+      image: image,
     };
-
-    const upload = (items) => {
-      items.forEach((item) => {
-        const uploadTask = storage.ref(`/items/${item.file.name}`).put(item);
-        uploadTask.on(
-          "state_changes",
-          (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("upload is" + " " + progress);
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {
-            uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-              setFile({ [label.item]: url });
-              setUpload((prev) => prev + 1);
-            });
-          }
-        );
-      });
-    };
-
-    const handleUpload = (e) => {
-      e.preventDefault();
-      upload([{ file: file, label: "image" }]);
-    };
+    setImage(null);
+    setUpload(0);
+    desc.current.value = "";
 
     try {
-      await axios.post("http://Localhost:9900/post", newPost, {
+      await axios.post("http://Localhost:8000/post", newPost, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +88,7 @@ function Share() {
           />
         </div>
         <hr className="shareHr" />
-        <form className="button" onSubmit={submitHandler}>
+        <form className="button">
           <div className="optioncontainer">
             <label htmlFor="file" className="options">
               <PermMedia htmlColor="tomato" className="iconshare" />
@@ -106,7 +115,11 @@ function Share() {
             </div>
           </div>
           {uploaded === 1 ? (
-            <button className="shareButton" type="submit">
+            <button
+              className="shareButton"
+              onClick={submitHandler}
+              type="submit"
+            >
               share
             </button>
           ) : (
