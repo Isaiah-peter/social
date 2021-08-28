@@ -25,7 +25,7 @@ function App() {
           <Register />
         </Route>
         <Route exact path="/">
-          <Home />
+          {user && user.status ? <Home /> : <Redirect to="/register" />}
         </Route>
         {user && (
           <Route path="/profile/:id">
