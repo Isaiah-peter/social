@@ -11,6 +11,7 @@ function Share() {
   const [file, setFile] = useState(null);
   const [uploaded, setUpload] = useState(0);
   const [image, setImage] = useState(null);
+  const [level, setLevel] = useState(null);
 
   const desc = useRef();
 
@@ -31,6 +32,7 @@ function Share() {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
+        setLevel(Math.floor(progress));
       },
       (err) => {
         console.log(err);
@@ -124,7 +126,7 @@ function Share() {
             </button>
           ) : (
             <button className="shareButton" onClick={handleUpload}>
-              uplaod
+              {level === null ? "uplaod" : `${level}%`}
             </button>
           )}
         </form>
