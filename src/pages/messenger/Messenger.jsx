@@ -12,10 +12,35 @@ const Messenger = () => {
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [newMessage, setNewMessage] = useState("");
-  const [socket, setSocket] = useState(null);
+  const [arriverMesage, setArriverMesage] = useState(null);
+  const socket = useRef();
   const [messages, setMessages] = useState([]);
   const { user } = useContext(AuthContext);
   const scrollref = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://192.168.88.156:8900");
+  }, []);
+
+  useEffect(() => {
+    arriverMesage && setMessages((prev) => [...prev, arriverMesage]);
+    socket.current.on("getMessage", (data) => {
+      setArriverMesage({
+        sender: data.senderId,
+        text: data.text,
+        CreatedAt: Date.now(),
+      });
+    });
+  }, [arriverMesage, currentChat]);
+
+  console.log(arriverMesage);
+
+  useEffect(() => {
+    socket.current.emit("addUser", user.user.ID);
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [user]);
 
   useEffect(() => {
     getConversation();
@@ -28,7 +53,7 @@ const Messenger = () => {
 
   const getConversation = async () => {
     const res = await axios.get(
-      `http://Localhost:8000/getconversation/${user.user.ID}`,
+      `http://192.168.88.156:8000/getconversation/${user.user.ID}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -41,7 +66,7 @@ const Messenger = () => {
   const getMessage = async () => {
     try {
       const res = await axios.get(
-        `http://Localhost:8000/message/${currentChat.ID}`,
+        `http://192.168.88.156:8000/message/${currentChat.ID}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -61,13 +86,27 @@ const Messenger = () => {
       sender: user.user.ID,
       text: newMessage,
     };
+    const receiverId =
+      currentChat.recieve_id !== user.user.ID
+        ? currentChat.recieve_id
+        : currentChat.sender_id;
+    console.log(receiverId);
+    socket.current.emit("sendMessage", {
+      senderId: user.user.ID,
+      receiverId,
+      text: newMessage,
+    });
 
     try {
-      const res = await axios.post("http://Localhost:8000/message", message, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const res = await axios.post(
+        "http://192.168.88.156:8000/message",
+        message,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (error) {

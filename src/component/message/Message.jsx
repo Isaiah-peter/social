@@ -14,7 +14,7 @@ export const Message = ({ own, message }) => {
 
   const getUser = async () => {
     const res = await axios.get(
-      `http://Localhost:8000/user/${message.sender}`,
+      `http://192.168.88.156:8000/user/${message.sender}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,

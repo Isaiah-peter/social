@@ -58,7 +58,7 @@ function Share() {
     desc.current.value = "";
 
     try {
-      await axios.post("http://Localhost:8000/post", newPost, {
+      await axios.post("http://192.168.88.156:8000/post", newPost, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

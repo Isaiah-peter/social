@@ -11,7 +11,7 @@ const ProfileRightBar = ({ user, follower }) => {
         </div>
         <div className="infoitem">
           <span className="infokey">from:</span>
-          <span className="infovalue">{user.from}</span>
+          <span className="infovalue">{user.town}</span>
         </div>
         <div className="infoitem">
           <span className="infokey">Relationship:</span>
