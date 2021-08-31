@@ -77,3 +77,20 @@
   /* text-align: center; */
   cursor: default;
 }
+
+.conversationpart {
+  height: 30%;
+  overflow-y: scroll;
+}
+
+.grouppart {
+  height: 20%;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+
+.groupjoined {
+  height: 30%;
+  overflow-y: scroll;
+  margin-top: 10px;
+}

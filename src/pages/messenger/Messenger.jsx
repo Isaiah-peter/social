@@ -7,6 +7,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../component/context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { Groupowned } from "../../component/group/Groupowned";
+import { Groupjoined } from "../../component/group/Groupjoined";
 
 const Messenger = () => {
   const [conversation, setConversation] = useState([]);
@@ -17,6 +19,20 @@ const Messenger = () => {
   const [messages, setMessages] = useState([]);
   const { user } = useContext(AuthContext);
   const scrollref = useRef();
+  const [group, setGroup] = useState([]);
+
+  useEffect(() => {
+    getgroup();
+  }, []);
+
+  const getgroup = async () => {
+    const res = await axios.get(`http://Localhost:8000/group/${user.user.ID}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    setGroup(res.data);
+  };
 
   useEffect(() => {
     socket.current = io("ws://192.168.88.156:8900");
@@ -125,13 +141,23 @@ const Messenger = () => {
               placeholder="Search friends...."
               className="searchfriend"
             />
-            {conversation.map((c) => {
-              return (
-                <div key={c.ID} onClick={() => setCurrentChat(c)}>
-                  <Conversations conversation={c} />
-                </div>
-              );
-            })}
+            <div className="conversationpart">
+              {conversation.map((c) => {
+                return (
+                  <div key={c.ID} onClick={() => setCurrentChat(c)}>
+                    <Conversations conversation={c} />
+                  </div>
+                );
+              })}
+            </div>
+            <div className="grouppart">
+              {group.map((g) => {
+                return <Groupowned g={g} />;
+              })}
+            </div>
+            <div className="groupjoined">
+              <Groupjoined g={group} />
+            </div>
           </div>
         </div>
         <div className="chatBox">
