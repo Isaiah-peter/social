@@ -8,7 +8,6 @@ import { AuthContext } from "../../component/context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { Groupowned } from "../../component/group/Groupowned";
-import { Groupjoined } from "../../component/group/Groupjoined";
 
 const Messenger = () => {
   const [conversation, setConversation] = useState([]);
@@ -20,17 +19,21 @@ const Messenger = () => {
   const { user } = useContext(AuthContext);
   const scrollref = useRef();
   const [group, setGroup] = useState([]);
+  const [groupchat, setGroupChat] = useState(false);
 
   useEffect(() => {
     getgroup();
   }, []);
 
   const getgroup = async () => {
-    const res = await axios.get(`http://Localhost:8000/group/${user.user.ID}`, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const res = await axios.get(
+      `http://Localhost:8000/groupuser/${user.user.ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     setGroup(res.data);
   };
 
@@ -49,8 +52,6 @@ const Messenger = () => {
     });
   }, [arriverMesage, currentChat]);
 
-  console.log(arriverMesage);
-
   useEffect(() => {
     socket.current.emit("addUser", user.user.ID);
     socket.current.on("getUsers", (users) => {
@@ -60,8 +61,13 @@ const Messenger = () => {
 
   useEffect(() => {
     getConversation();
-    getMessage();
-  }, [user.user.ID, currentChat]);
+    if (groupchat == false) {
+      getMessage();
+    }
+    if (groupchat === true) {
+      getGroupMessage();
+    }
+  }, [user.user.ID, currentChat, groupchat]);
 
   useEffect(() => {
     scrollref.current?.scrollIntoView({ behavior: "smooth" });
@@ -77,6 +83,23 @@ const Messenger = () => {
       }
     );
     setConversation(res.data);
+  };
+
+  const getGroupMessage = async () => {
+    try {
+      const res = await axios.get(
+        `http://192.168.88.156:8000/groupmessage/${currentChat.group_id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setMessages(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getMessage = async () => {
@@ -97,36 +120,60 @@ const Messenger = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const message = {
-      conversation_id: currentChat.ID,
-      sender: user.user.ID,
-      text: newMessage,
-    };
-    const receiverId =
-      currentChat.recieve_id !== user.user.ID
-        ? currentChat.recieve_id
-        : currentChat.sender_id;
-    console.log(receiverId);
-    socket.current.emit("sendMessage", {
-      senderId: user.user.ID,
-      receiverId,
-      text: newMessage,
-    });
+    if (!groupchat) {
+      const message = {
+        conversation_id: currentChat.ID,
+        sender: user.user.ID,
+        text: newMessage,
+      };
+      const receiverId =
+        currentChat.recieve_id !== user.user.ID
+          ? currentChat.recieve_id
+          : currentChat.sender_id;
+      console.log(receiverId);
+      socket.current.emit("sendMessage", {
+        senderId: user.user.ID,
+        receiverId,
+        text: newMessage,
+      });
 
-    try {
-      const res = await axios.post(
-        "http://192.168.88.156:8000/message",
-        message,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      setMessages([...messages, res.data]);
-      setNewMessage("");
-    } catch (error) {
-      console.log(error);
+      try {
+        const res = await axios.post(
+          "http://192.168.88.156:8000/message",
+          message,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setMessages([...messages, res.data]);
+        setNewMessage("");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const message = {
+        group_id: currentChat.group_id,
+        user_id: user.user.ID,
+        message: newMessage,
+      };
+
+      try {
+        const res = await axios.post(
+          "http://192.168.88.156:8000/groupmessage",
+          message,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setMessages([...messages, res.data]);
+        setNewMessage("");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -144,7 +191,13 @@ const Messenger = () => {
             <div className="conversationpart">
               {conversation.map((c) => {
                 return (
-                  <div key={c.ID} onClick={() => setCurrentChat(c)}>
+                  <div
+                    key={c.ID}
+                    onClick={() => {
+                      setCurrentChat(c);
+                      setGroupChat(false);
+                    }}
+                  >
                     <Conversations conversation={c} />
                   </div>
                 );
@@ -152,11 +205,17 @@ const Messenger = () => {
             </div>
             <div className="grouppart">
               {group.map((g) => {
-                return <Groupowned g={g} />;
+                return (
+                  <Groupowned
+                    key={g.ID}
+                    g={g}
+                    groupchat={() => {
+                      setGroupChat(true);
+                    }}
+                    currentChat={() => setCurrentChat(g)}
+                  />
+                );
               })}
-            </div>
-            <div className="groupjoined">
-              <Groupjoined g={group} />
             </div>
           </div>
         </div>
@@ -170,7 +229,10 @@ const Messenger = () => {
                       <div key={m.ID} ref={scrollref}>
                         <Message
                           key={m.ID}
-                          own={m.sender === user.user.ID}
+                          own={
+                            m.sender === user.user.ID ||
+                            m.user_id === user.user.ID
+                          }
                           message={m}
                         />
                       </div>
