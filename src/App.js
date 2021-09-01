@@ -4,12 +4,13 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./App.css";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/registerpages/Register";
+import Messenger from "./pages/messenger/Messenger";
 import { AuthContext } from "./component/context/AuthContext";
 
 function App() {
@@ -18,12 +19,17 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+        <Route path="/login">
+          {user && user.status ? <Redirect to="/" /> : <Login />}
+        </Route>
         <Route path="/register">
           <Register />
         </Route>
         <Route exact path="/">
-          <Home />
+          {user && user.status ? <Home /> : <Redirect to="/register" />}
+        </Route>
+        <Route exact path="/messenger">
+          {!user ? <Redirect to="/" /> : <Messenger />}
         </Route>
         {user && (
           <Route path="/profile/:id">

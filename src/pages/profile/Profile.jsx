@@ -5,7 +5,7 @@ import Topbar from "../../component/topbar/Topbar";
 import "./profile.css";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../component/context/AuthContext";
 
 function Profile() {
@@ -19,7 +19,7 @@ function Profile() {
   useEffect(() => {
     getUser();
     getFollower();
-  }, []);
+  }, [id]);
 
   const getUser = async () => {
     const res = await axios.get(`http://Localhost:8000/user/${param.id}`, {

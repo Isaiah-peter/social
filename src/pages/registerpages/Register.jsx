@@ -70,7 +70,7 @@ function Register() {
               Sign Up
             </button>
 
-            <button className="register">
+            <button className="register" type="button">
               <Link to="/login" className="link">
                 Login
               </Link>

@@ -1,0 +1,18 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.groupname {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  width: 90%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.groupname:hover {
+  background-color: #ece9e9;
+  border-radius: 10px;
+}

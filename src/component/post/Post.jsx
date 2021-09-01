@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Post.css";
 import * as timeago from "timeago.js";
@@ -8,18 +8,20 @@ import { AuthContext } from "../context/AuthContext";
 const Post = ({ p }) => {
   const [users, setUser] = useState([]);
   const [like, setLike] = useState(0);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
   useEffect(() => {
     getUser();
     getLike();
   }, [p]);
   const getUser = async () => {
-    const res = await axios.get(`http://Localhost:8000/user/${p.user_id}`, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const res = await axios.get(
+      `http://192.168.88.156:8000/user/${p.user_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     if (p.user_id !== "") {
       setUser(res.data);
     }
@@ -28,7 +30,7 @@ const Post = ({ p }) => {
     const postid = {
       post_id: p.ID,
     };
-    const res = await axios.post(`http://Localhost:8000/like`, postid, {
+    await axios.post(`http://192.168.88.156:8000/like`, postid, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -36,7 +38,7 @@ const Post = ({ p }) => {
   };
 
   const getLike = async () => {
-    const res = await axios.get(`http://Localhost:8000/like/${p.ID}`, {
+    const res = await axios.get(`http://192.168.88.156:8000/like/${p.ID}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -64,7 +66,7 @@ const Post = ({ p }) => {
         </div>
         <div className="postcenter">
           <span className="posttext">{p.description}</span>
-          <img src={PF + p.image} alt="" className="postimage" />
+          <img src={p.image} alt="" className="postimage" />
         </div>
         <div className="postbuttom">
           <div className="left">

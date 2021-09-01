@@ -15,14 +15,18 @@ function Feed({ id }) {
   const getPost = async () => {
     try {
       const res = await axios.get(
-        `http://Localhost:8000/timeline/${id ? id : user.user.ID}`,
+        `http://192.168.88.156:8000/timeline/${id ? id : user.user.ID}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         }
       );
-      setPosts(res.data);
+      setPosts(
+        res.data.sort((p1, p2) => {
+          return new Date(p2.CreatedAt) - new Date(p1.CreatedAt);
+        })
+      );
     } catch (err) {
       console.log(err);
     }
