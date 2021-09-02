@@ -8,6 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 const Post = ({ p }) => {
   const [users, setUser] = useState([]);
   const [like, setLike] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
   const { user } = useContext(AuthContext);
   useEffect(() => {
     getUser();
@@ -35,6 +36,16 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
+    setIsLiked(false);
+  };
+
+  const dislikePost = async () => {
+    await axios.delete(`http://192.168.88.156:8000/like/${p.ID}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    setIsLiked(true);
   };
 
   const getLike = async () => {
@@ -44,7 +55,10 @@ const Post = ({ p }) => {
       },
     });
     setLike(res.data.length);
+    console.log(res.data);
   };
+
+  console.log(isLiked);
 
   return (
     <div className="post">
@@ -70,18 +84,36 @@ const Post = ({ p }) => {
         </div>
         <div className="postbuttom">
           <div className="left">
-            <img
-              onClick={likePost}
-              src="asset/like.jpg"
-              alt=""
-              className="likeicon"
-            />
-            <img
-              onClick={likePost}
-              src="asset/heart.jpg"
-              alt=""
-              className="likeicon"
-            />
+            {isLiked == true ? (
+              <img
+                onClick={likePost}
+                src="asset/like.jpg"
+                alt=""
+                className="likeicon"
+              />
+            ) : (
+              <img
+                onClick={dislikePost}
+                src="asset/like.jpg"
+                alt=""
+                className="likeicon"
+              />
+            )}
+            {isLiked == true ? (
+              <img
+                onClick={likePost}
+                src="asset/heart.jpg"
+                alt=""
+                className="likeicon"
+              />
+            ) : (
+              <img
+                onClick={dislikePost}
+                src="asset/heart.jpg"
+                alt=""
+                className="likeicon"
+              />
+            )}
             <span className="peoplethatlike">{like} people like</span>
           </div>
         </div>
