@@ -20,10 +20,25 @@ const Messenger = () => {
   const scrollref = useRef();
   const [group, setGroup] = useState([]);
   const [groupchat, setGroupChat] = useState(false);
+  const [onlineUser, setOnlineUser] = useState([]);
+  const [follower, setFollower] = useState([]);
 
   useEffect(() => {
     getgroup();
+    getFollower();
   }, []);
+
+  const getFollower = async () => {
+    const res = await axios.get(
+      `http://192.168.88.156:8000//follower/${user.user.ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token} `,
+        },
+      }
+    );
+    setFollower(res.data);
+  };
 
   const getgroup = async () => {
     const res = await axios.get(
@@ -55,9 +70,11 @@ const Messenger = () => {
   useEffect(() => {
     socket.current.emit("addUser", user.user.ID);
     socket.current.on("getUsers", (users) => {
-      console.log(users);
+      setOnlineUser(
+        follower.filter((f) => users.some((u) => u.userId === f.ID))
+      );
     });
-  }, [user]);
+  }, [follower]);
 
   useEffect(() => {
     getConversation();
@@ -198,7 +215,7 @@ const Messenger = () => {
                       setGroupChat(false);
                     }}
                   >
-                    <Conversations conversation={c} />
+                    <Conversations conversation={c} follower={follower} />
                   </div>
                 );
               })}
@@ -260,7 +277,11 @@ const Messenger = () => {
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <HomeRightBar />
+            <HomeRightBar
+              onlineUser={onlineUser}
+              currentId={user.user.ID}
+              currentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>

@@ -1,102 +1,120 @@
-.topbarContainer{
-    height: 50px;
-    width: 100%;
-    background-color: #1877f2;
-    display: flex;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 999999;
+.topbarContainer {
+  height: 50px;
+  width: 100%;
+  background-color: #1877f2;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 999999;
 }
 
-.logo{
-    font-size: 20px;
-    color: #fff;
-    font-weight: bold;
-    letter-spacing: 2px;
-    padding: 0 0 0 15px;
+.logo {
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 0 0 0 15px;
 }
-.left{
-    flex: 3;
-}
-
-.searchbar{
-    display: flex;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+.left {
+  flex: 3;
 }
 
-.center{
-    background-color: #fff;
-    height: 30px;
-    border-radius: 50px;
-    flex: 5;
+.searchbar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.searchinput{
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    margin-left: 2px;
-    border-radius: 50px;
-    padding: 0 2px;
+.center {
+  background-color: #fff;
+  height: 30px;
+  border-radius: 50px;
+  flex: 5;
+}
+
+.searchinput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-left: 2px;
+  border-radius: 50px;
+  padding: 0 2px;
 }
 
 .right {
-    display: flex;
-    align-items: center;
-    flex: 4;
-    justify-content: space-around;
-    padding: 0  15px 0 0;
+  display: flex;
+  align-items: center;
+  flex: 4;
+  justify-content: space-around;
+  padding: 0 15px 0 0;
 }
 
-.topbaricon{
-    display: flex;
-    align-items: center;
-    margin-left: 16px;
+.topbaricon {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
 }
 
-.topbariconitem{
-    margin-left: 15px;
-    position: relative;
-    cursor: pointer;
+.topbariconitem {
+  margin-left: 15px;
+  position: relative;
+  cursor: pointer;
 }
 
-.iconBadge{
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: red;
-    height: 15px;
-    width: 15px;
-    font-size: 10px;
-    color: white;
-    border-radius:50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.iconBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  height: 15px;
+  width: 15px;
+  font-size: 10px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.topbarlink{
+.topbarlink {
   margin: 7px;
   cursor: pointer;
   font-size: 14px;
   color: #fff;
 }
 
-.icons{
-    color: #fff !important;
+.icons {
+  color: #fff !important;
 }
 
 .topbarimage {
-    width: 30px;
-    height: 30px;
-    background-color: #fff;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.logout {
+  border: none;
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 40px;
+  right: 25px;
+  visibility: hidden;
+}
+
+.logoutplace:hover > .logout {
+  visibility: visible;
 }

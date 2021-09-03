@@ -24,3 +24,18 @@
   text-transform: capitalize;
   font-weight: 600;
 }
+
+.followtheuser {
+  border: none;
+  background-color: green;
+  color: white;
+  font-size: 10px;
+  border-radius: 3px;
+  padding: 3px 5px;
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.conversations:hover > .followtheuser {
+  visibility: visible;
+}

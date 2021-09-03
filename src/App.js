@@ -12,6 +12,7 @@ import Profile from "./pages/profile/Profile";
 import Register from "./pages/registerpages/Register";
 import Messenger from "./pages/messenger/Messenger";
 import { AuthContext } from "./component/context/AuthContext";
+import EditPage from "./component/edit/Editprofilepage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -32,9 +33,14 @@ function App() {
           {!user ? <Redirect to="/" /> : <Messenger />}
         </Route>
         {user && (
-          <Route path="/profile/:id">
-            <Profile />
-          </Route>
+          <>
+            <Route path="/profile/:id">
+              <Profile />
+            </Route>
+            <Route path="/edit">
+              <EditPage />
+            </Route>
+          </>
         )}
       </Switch>
     </Router>

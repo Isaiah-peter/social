@@ -1,71 +1,70 @@
 .post {
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 0px 16px -8px rgba(0,0,0,0.68);
-    background-color: #fff;
-    margin: 30px 0;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0px 16px -8px rgba(0, 0, 0, 0.68);
+  background-color: #fff;
+  margin: 30px 0;
 }
 
-.wrappers{
-    display: block;
-    padding: 8px;
+.wrappers {
+  display: block;
+  padding: 8px;
 }
 .posttop {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
 }
-.profileimage{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
+.profileimage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
 }
-.username{
-    text-transform: capitalize;
-    margin-right: 10px;
+.username {
+  text-transform: capitalize;
+  margin-right: 10px;
 }
-.dayposted{
-    font-size: 12px;
-    color: grey;
+.dayposted {
+  font-size: 12px;
+  color: grey;
 }
-.postcenter{
-    width: 100%;
-    display: block;
+.postcenter {
+  width: 100%;
+  display: block;
 }
 
-.posttext{
-    font-size: 18px;
-    margin-bottom: 10px;
+.posttext {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
-.postimage{
-    width: 100%;
-    margin-top: 10px;
-    max-height: 500px;
-    object-fit: contain;
+.postimage {
+  width: 100%;
+  margin-top: 10px;
+  max-height: 300px;
+  object-fit: contain;
 }
-.postbuttom{
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+.postbuttom {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-.likeicon{
-    width: 25px;
-    height: 25px;
-    margin-right: 5px;
-    cursor: pointer;
-    background-color: white;
-    border-radius: 50%;
-}
-
-.peoplethatlike{
-    font-size: 15px;
+.likeicon {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
 }
 
+.peoplethatlike {
+  font-size: 15px;
+}

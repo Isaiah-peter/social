@@ -31,7 +31,7 @@ function Profile() {
   };
 
   const getFollower = async () => {
-    const res = await axios.get(`http://Localhost:8000//follower/${id}`, {
+    const res = await axios.get(`http://192.168.88.156:8000//follower/${id}`, {
       headers: {
         Authorization: `Bearer ${user.token} `,
       },
@@ -49,18 +49,12 @@ function Profile() {
           <div className="profiletop">
             <div className="profilecover">
               <img
-                src={
-                  users.coverpicture ? user.coverpicture : "/asset/post/6.jpg"
-                }
+                src={users.coverpicture}
                 alt="cover"
                 className="profileCoverImg"
               />
               <img
-                src={
-                  users.profilepicture
-                    ? user.profilepicture
-                    : "/asset/noAvatar.png"
-                }
+                src={users.profilepicture}
                 alt="cover"
                 className="profileUserImg"
               />

@@ -6,6 +6,11 @@ import { AuthContext } from "../context/AuthContext";
 
 function Topbar() {
   const { user } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("user");
+    window.location.reload();
+  };
   return (
     <div className="topbarContainer">
       <div className="left">
@@ -44,13 +49,19 @@ function Topbar() {
             <span className="iconBadge">2</span>
           </div>
         </div>
-        <Link to={{ pathname: `profile/${user.user.ID}` }}>
-          <img
-            src={user.user.profilepicture || "/asset/noAvatar.png"}
-            alt="user"
-            className="topbarimage"
-          />
-        </Link>
+        <div className="logoutplace">
+          <Link to={{ pathname: `profile/${user.user.ID}` }}>
+            <img
+              src={user.user.profilepicture || "/asset/noAvatar.png"}
+              alt="user"
+              className="topbarimage"
+            />
+          </Link>
+
+          <button className="logout" onClick={handleLogout}>
+            logout
+          </button>
+        </div>
       </div>
     </div>
   );

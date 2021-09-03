@@ -55,10 +55,7 @@ const Post = ({ p }) => {
       },
     });
     setLike(res.data.length);
-    console.log(res.data);
   };
-
-  console.log(isLiked);
 
   return (
     <div className="post">
