@@ -31,7 +31,7 @@ function Profile() {
   };
 
   const getFollower = async () => {
-    const res = await axios.get(`http://192.168.88.156:8000//follower/${id}`, {
+    const res = await axios.get(`http://localhost:8000//follower/${id}`, {
       headers: {
         Authorization: `Bearer ${user.token} `,
       },

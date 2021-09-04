@@ -68,7 +68,9 @@ const ProfileRightBar = ({ user, follower }) => {
             <Link to={`/profile/${f.ID}`} className="link">
               <div key={f.ID} className="followingdetail">
                 <img
-                  src={f.profilepicture || "/asset/person/6.jpg"}
+                  src={
+                    f.profilepicture ? f.profilepicture : "/asset/noAvatar.png"
+                  }
                   alt=""
                   className="followingdetailimg"
                 />

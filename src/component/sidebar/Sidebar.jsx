@@ -13,10 +13,10 @@ function Sidebar() {
 
   useEffect(() => {
     getFollower();
-  });
+  }, []);
   const getFollower = async () => {
     const res = await axios.get(
-      `http://192.168.88.156:8000//follower/${user.user.ID}`,
+      `http://localhost:8000/follower/${user.user.ID}`,
       {
         headers: {
           Authorization: `Bearer ${user.token} `,

@@ -1,0 +1,41 @@
+.editcontainer {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(243, 243, 243);
+}
+
+.profiledit {
+  background-color: #f1f1f1ea;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  padding: 40px 50px;
+  width: 80%;
+  margin: auto auto;
+}
+
+.editinput {
+  border: none;
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.editbutton {
+  width: 30%;
+  border: none;
+  color: white;
+  background-color: green;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.gridcontroller {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editbutton.u {
+  background-color: blue;
+}
