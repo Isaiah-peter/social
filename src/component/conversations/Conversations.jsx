@@ -15,7 +15,7 @@ export const Conversations = ({ conversation, follower }) => {
 
   const getUser = async () => {
     const res = await axios.get(
-      `http://192.168.88.156:8000/user/${
+      `http://localhost:8000/user/${
         user.user.ID !== conversation.recieve_id
           ? conversation.recieve_id
           : conversation.sender_id
@@ -37,7 +37,7 @@ export const Conversations = ({ conversation, follower }) => {
       user_id: user.user.ID,
     };
 
-    await axios.post("http://192.168.88.156:8000/follower", data, {
+    await axios.post("http://localhost:8000/follower", data, {
       headers: {
         Authorization: `Bearer ${user.token} `,
       },

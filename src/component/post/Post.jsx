@@ -15,14 +15,11 @@ const Post = ({ p }) => {
     getLike();
   }, [p]);
   const getUser = async () => {
-    const res = await axios.get(
-      `http://192.168.88.156:8000/user/${p.user_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const res = await axios.get(`http://localhost:8000/user/${p.user_id}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     if (p.user_id !== "") {
       setUser(res.data);
     }
@@ -31,7 +28,7 @@ const Post = ({ p }) => {
     const postid = {
       post_id: p.ID,
     };
-    await axios.post(`http://192.168.88.156:8000/like`, postid, {
+    await axios.post(`http://localhost:8000/like`, postid, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -40,7 +37,7 @@ const Post = ({ p }) => {
   };
 
   const dislikePost = async () => {
-    await axios.delete(`http://192.168.88.156:8000/like/${p.ID}`, {
+    await axios.delete(`http://localhost:8000/like/${p.ID}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -49,7 +46,7 @@ const Post = ({ p }) => {
   };
 
   const getLike = async () => {
-    const res = await axios.get(`http://192.168.88.156:8000/like/${p.ID}`, {
+    const res = await axios.get(`http://localhost:8000/like/${p.ID}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },

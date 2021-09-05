@@ -8,6 +8,7 @@ import { AuthContext } from "../../component/context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { Groupowned } from "../../component/group/Groupowned";
+import MicNoneIcon from "@material-ui/icons/MicNone";
 
 const Messenger = () => {
   const [conversation, setConversation] = useState([]);
@@ -30,7 +31,7 @@ const Messenger = () => {
 
   const getFollower = async () => {
     const res = await axios.get(
-      `http://192.168.88.156:8000//follower/${user.user.ID}`,
+      `http://localhost:8000//follower/${user.user.ID}`,
       {
         headers: {
           Authorization: `Bearer ${user.token} `,
@@ -53,7 +54,7 @@ const Messenger = () => {
   };
 
   useEffect(() => {
-    socket.current = io("ws://192.168.88.156:8900");
+    socket.current = io("ws://localhost:8900");
   }, []);
 
   useEffect(() => {
@@ -92,7 +93,7 @@ const Messenger = () => {
 
   const getConversation = async () => {
     const res = await axios.get(
-      `http://192.168.88.156:8000/getconversation/${user.user.ID}`,
+      `http://localhost:8000/getconversation/${user.user.ID}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -105,7 +106,7 @@ const Messenger = () => {
   const getGroupMessage = async () => {
     try {
       const res = await axios.get(
-        `http://192.168.88.156:8000/groupmessage/${currentChat.group_id}`,
+        `http://localhost:8000/groupmessage/${currentChat.group_id}`,
 
         {
           headers: {
@@ -122,7 +123,7 @@ const Messenger = () => {
   const getMessage = async () => {
     try {
       const res = await axios.get(
-        `http://192.168.88.156:8000/message/${currentChat.ID}`,
+        `http://localhost:8000/message/${currentChat.ID}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -155,15 +156,11 @@ const Messenger = () => {
       });
 
       try {
-        const res = await axios.post(
-          "http://192.168.88.156:8000/message",
-          message,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const res = await axios.post("http://localhost:8000/message", message, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
         setMessages([...messages, res.data]);
         setNewMessage("");
       } catch (error) {
@@ -178,7 +175,7 @@ const Messenger = () => {
 
       try {
         const res = await axios.post(
-          "http://192.168.88.156:8000/groupmessage",
+          "http://localhost:8000/groupmessage",
           message,
           {
             headers: {
@@ -192,6 +189,25 @@ const Messenger = () => {
         console.log(error);
       }
     }
+  };
+
+  window.SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recongnition = new window.SpeechRecognition();
+  recongnition.interimResults = true;
+
+  recongnition.addEventListener("result", (e) => {
+    const text = Array.from(e.results)
+      .map((result) => result[0])
+      .map((result) => result.transcript)
+      .join("");
+
+    setNewMessage(text);
+  });
+
+  const handleStart = () => {
+    recongnition.start();
   };
 
   return (
@@ -262,9 +278,14 @@ const Messenger = () => {
                     placeholder="write message"
                     onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
+                    autoCapitalize={true}
+                    autoComplete={true}
                   ></textarea>
                   <button className="sendmessage" onClick={handleSubmit}>
                     send
+                  </button>
+                  <button className="talk" onClick={handleStart}>
+                    <MicNoneIcon />
                   </button>
                 </div>
               </div>

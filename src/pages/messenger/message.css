@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .chatboxTop {
@@ -87,4 +88,22 @@
   height: 40%;
   overflow-y: scroll;
   margin-top: 10px;
+}
+
+.talk {
+  position: absolute;
+  bottom: 11%;
+  right: 18.5%;
+  background-color: blue;
+  border: none;
+  height: 40px;
+  width: 40px;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.8);
 }
