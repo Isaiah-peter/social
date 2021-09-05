@@ -3,18 +3,19 @@ import { AuthContext } from "../context/AuthContext";
 import "./Conversations.css";
 import axios from "axios";
 
-export const Conversations = ({ conversation }) => {
+export const Conversations = ({ conversation, follower }) => {
   const [users, setUser] = useState(null);
+  const [fe, setF] = useState([]);
 
   const { user } = useContext(AuthContext);
-
   useEffect(() => {
     getUser();
-  }, [conversation]);
+    setF(follower);
+  }, [conversation, follower]);
 
   const getUser = async () => {
     const res = await axios.get(
-      `http://192.168.88.156:8000/user/${
+      `http://localhost:8000/user/${
         user.user.ID !== conversation.recieve_id
           ? conversation.recieve_id
           : conversation.sender_id
@@ -29,6 +30,20 @@ export const Conversations = ({ conversation }) => {
       setUser(res.data);
     }
   };
+
+  const handleFollowed = async (users) => {
+    const data = {
+      follower_id: users.ID,
+      user_id: user.user.ID,
+    };
+
+    await axios.post("http://localhost:8000/follower", data, {
+      headers: {
+        Authorization: `Bearer ${user.token} `,
+      },
+    });
+  };
+
   return (
     <div className="conversations">
       {users && (
@@ -44,6 +59,10 @@ export const Conversations = ({ conversation }) => {
           <span className="conversationsname">{users.username}</span>
         </>
       )}
+
+      <button className="followtheuser" onClick={() => handleFollowed(users)}>
+        follow
+      </button>
     </div>
   );
 };

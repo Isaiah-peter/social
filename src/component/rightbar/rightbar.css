@@ -1,67 +1,66 @@
-.rightbar{
-    flex: 3.5;
+.rightbar {
+  flex: 3.5;
 }
 
-.rightwrapper{
-    padding: 20px 20px 0 0;
+.rightwrapper {
+  padding: 20px 20px 0 0;
 }
 
-.title{
-    font-size: 15px;
+.title {
+  font-size: 15px;
 }
 
-.list{
-    list-style: none;
-    margin-top: 10px;
+.list {
+  list-style: none;
+  margin-top: 10px;
 }
 
-.items{
-    display: flex;
-    margin-bottom: 10px;
+.items {
+  display: flex;
+  margin-bottom: 10px;
 }
 
-.imageContainer{
-    position: relative;
-    margin-right: 10px;
+.imageContainer {
+  position: relative;
+  margin-right: 10px;
 }
 
-.userimage{
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
+.userimage {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.greenbagde{
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: green;
-    border: 2px solid white;
+.greenbagde {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: green;
+  border: 2px solid white;
 }
 
-.username{
-    font-size: 18px;
-    font-weight: 500; 
-    
+.username {
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .rightbartitle {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-transform: capitalize;
 }
 
 .info {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .infoitem {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .infokey {
@@ -71,30 +70,48 @@
 }
 
 .infovalue {
-    font-weight: 300;
-    text-transform: capitalize;
+  font-weight: 300;
+  text-transform: capitalize;
 }
 
 .following {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.followingdetail{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    cursor: pointer;
+.followingdetail {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .followingdetailimg {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .followingdetailname {
-    text-transform: capitalize;
+  text-transform: capitalize;
+}
+
+.rightBarfollowbutton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #1872f2;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  font-weight: 500px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.rightBarfollowbutton:focus {
+  outline: none;
 }

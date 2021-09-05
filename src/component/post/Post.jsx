@@ -8,20 +8,18 @@ import { AuthContext } from "../context/AuthContext";
 const Post = ({ p }) => {
   const [users, setUser] = useState([]);
   const [like, setLike] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
   const { user } = useContext(AuthContext);
   useEffect(() => {
     getUser();
     getLike();
   }, [p]);
   const getUser = async () => {
-    const res = await axios.get(
-      `http://192.168.88.156:8000/user/${p.user_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const res = await axios.get(`http://localhost:8000/user/${p.user_id}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     if (p.user_id !== "") {
       setUser(res.data);
     }
@@ -30,15 +28,25 @@ const Post = ({ p }) => {
     const postid = {
       post_id: p.ID,
     };
-    await axios.post(`http://192.168.88.156:8000/like`, postid, {
+    await axios.post(`http://localhost:8000/like`, postid, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     });
+    setIsLiked(false);
+  };
+
+  const dislikePost = async () => {
+    await axios.delete(`http://localhost:8000/like/${p.ID}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    setIsLiked(true);
   };
 
   const getLike = async () => {
-    const res = await axios.get(`http://192.168.88.156:8000/like/${p.ID}`, {
+    const res = await axios.get(`http://localhost:8000/like/${p.ID}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -70,18 +78,36 @@ const Post = ({ p }) => {
         </div>
         <div className="postbuttom">
           <div className="left">
-            <img
-              onClick={likePost}
-              src="asset/like.jpg"
-              alt=""
-              className="likeicon"
-            />
-            <img
-              onClick={likePost}
-              src="asset/heart.jpg"
-              alt=""
-              className="likeicon"
-            />
+            {isLiked == true ? (
+              <img
+                onClick={likePost}
+                src="asset/like.jpg"
+                alt=""
+                className="likeicon"
+              />
+            ) : (
+              <img
+                onClick={dislikePost}
+                src="asset/like.jpg"
+                alt=""
+                className="likeicon"
+              />
+            )}
+            {isLiked == true ? (
+              <img
+                onClick={likePost}
+                src="asset/heart.jpg"
+                alt=""
+                className="likeicon"
+              />
+            ) : (
+              <img
+                onClick={dislikePost}
+                src="asset/heart.jpg"
+                alt=""
+                className="likeicon"
+              />
+            )}
             <span className="peoplethatlike">{like} people like</span>
           </div>
         </div>
