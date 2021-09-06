@@ -23,6 +23,7 @@ const Messenger = () => {
   const [groupchat, setGroupChat] = useState(false);
   const [onlineUser, setOnlineUser] = useState([]);
   const [follower, setFollower] = useState([]);
+  const [groupIdentify, setGroupIdentify] = useState([]);
 
   useEffect(() => {
     getgroup();
@@ -210,6 +211,19 @@ const Messenger = () => {
     recongnition.start();
   };
 
+  const addFriends = async (friendId) => {
+    const data = {
+      user_id: friendId,
+      group_id: currentChat.group_id,
+    };
+
+    await axios.post("http://localhost:8000/addfriend", data, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  };
+
   return (
     <>
       <Topbar />
@@ -256,6 +270,20 @@ const Messenger = () => {
           {currentChat ? (
             <>
               <div className="chatBoxWrapper">
+                {groupchat && (
+                  <div className="adduserscontainer">
+                    <button className="adduserbutton">+</button>
+                    <ul className="userfriendlist">
+                      {follower.map((f) => {
+                        return (
+                          <li className="item" onClick={() => addFriends(f.ID)}>
+                            {f.username}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
                 <div className="chatboxTop">
                   {messages.map((m) => {
                     return (
@@ -278,8 +306,6 @@ const Messenger = () => {
                     placeholder="write message"
                     onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
-                    autoCapitalize={true}
-                    autoComplete={true}
                   ></textarea>
                   <button className="sendmessage" onClick={handleSubmit}>
                     send

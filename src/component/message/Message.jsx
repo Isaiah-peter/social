@@ -25,6 +25,7 @@ export const Message = ({ own, message }) => {
       setUser(res.data);
     }
   };
+
   return (
     <div className={own ? "message own" : "message"}>
       <div className="messageTop">
@@ -35,7 +36,10 @@ export const Message = ({ own, message }) => {
           alt="user"
           className="messageUserImage"
         />
-        <p className="messageText">{message.text || message.message}</p>
+        <div className="messageText">
+          <h6 className="messageusername">{users.username}</h6>
+          <p>{message.text || message.message}</p>
+        </div>
       </div>
       <div className="messagebottom">{format(message.CreatedAt)}</div>
     </div>
