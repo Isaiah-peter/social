@@ -33,7 +33,7 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    setIsLiked(false);
+    setIsLiked(true);
   };
 
   const dislikePost = async () => {
@@ -42,7 +42,7 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    setIsLiked(true);
+    setIsLiked(false);
   };
 
   const getLike = async () => {
@@ -78,31 +78,43 @@ const Post = ({ p }) => {
         </div>
         <div className="postbuttom">
           <div className="left">
-            {isLiked == true ? (
+            {isLiked == false ? (
               <img
-                onClick={likePost}
+                onClick={() => {
+                  likePost();
+                  setLike((prev) => prev + 1);
+                }}
                 src="asset/like.jpg"
                 alt=""
                 className="likeicon"
               />
             ) : (
               <img
-                onClick={dislikePost}
+                onClick={() => {
+                  dislikePost();
+                  setLike((prev) => prev - 1);
+                }}
                 src="asset/like.jpg"
                 alt=""
                 className="likeicon"
               />
             )}
-            {isLiked == true ? (
+            {isLiked == false ? (
               <img
-                onClick={likePost}
+                onClick={() => {
+                  likePost();
+                  setLike((prev) => prev + 1);
+                }}
                 src="asset/heart.jpg"
                 alt=""
                 className="likeicon"
               />
             ) : (
               <img
-                onClick={dislikePost}
+                onClick={() => {
+                  dislikePost();
+                  setLike((prev) => prev - 1);
+                }}
                 src="asset/heart.jpg"
                 alt=""
                 className="likeicon"

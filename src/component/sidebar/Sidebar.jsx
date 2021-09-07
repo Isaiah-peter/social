@@ -39,7 +39,7 @@ function Sidebar() {
         <hr className="sidebarhr" />
         <ul className="friendList">
           {friend.map((f) => (
-            <CloseFriend f={f} />
+            <CloseFriend key={f.ID} f={f} />
           ))}
         </ul>
       </div>

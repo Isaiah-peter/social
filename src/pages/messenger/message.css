@@ -131,7 +131,7 @@
   visibility: hidden;
 }
 
-.adduserscontainer:hover .userfriendlist {
+.adduserbutton:hover ~ .userfriendlist {
   visibility: visible;
 }
 
