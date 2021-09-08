@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Add, Remove } from "@material-ui/icons";
+import { Add, Message, Remove } from "@material-ui/icons";
 import axios from "axios";
 
 const ProfileRightBar = ({ user, follower }) => {
@@ -38,13 +38,37 @@ const ProfileRightBar = ({ user, follower }) => {
 
     setFollowed(!followed);
   };
+  const message = async (id) => {
+    const data = {
+      recieve_id: id,
+      sender_id: currentUser.user.ID,
+    };
+    await axios.post(`http://localhost:8000/addfollowertomessage`, data, {
+      headers: {
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    });
+
+    window.location.href = "http://localhost:3000/messenger";
+  };
+
   return (
     <>
       {user.username !== currentUser.user.username && (
-        <button className="rightBarfollowbutton" onClick={followHandler}>
-          {followed ? "Follow" : "UnFollow"}
-          {followed ? <Add /> : <Remove />}
-        </button>
+        <div className="profilebuttons">
+          <button className="rightBarfollowbutton" onClick={followHandler}>
+            {followed ? "Follow" : "UnFollow"}
+            {followed ? <Add /> : <Remove />}
+          </button>
+          <div
+            className="messagebutton"
+            onClick={() => {
+              message(user.ID);
+            }}
+          >
+            Messsage
+          </div>
+        </div>
       )}
       <h4 className="rightbartitle">User information</h4>
       <div className="info">

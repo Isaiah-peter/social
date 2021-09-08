@@ -24,6 +24,8 @@ const Post = ({ p }) => {
       setUser(res.data);
     }
   };
+
+  console.log(users);
   const likePost = async () => {
     const postid = {
       post_id: p.ID,
@@ -84,7 +86,7 @@ const Post = ({ p }) => {
                   likePost();
                   setLike((prev) => prev + 1);
                 }}
-                src="asset/like.jpg"
+                src="/asset/like.jpg"
                 alt=""
                 className="likeicon"
               />
@@ -94,7 +96,7 @@ const Post = ({ p }) => {
                   dislikePost();
                   setLike((prev) => prev - 1);
                 }}
-                src="asset/like.jpg"
+                src="/asset/like.jpg"
                 alt=""
                 className="likeicon"
               />
@@ -105,7 +107,7 @@ const Post = ({ p }) => {
                   likePost();
                   setLike((prev) => prev + 1);
                 }}
-                src="asset/heart.jpg"
+                src="/asset/heart.jpg"
                 alt=""
                 className="likeicon"
               />
@@ -115,7 +117,7 @@ const Post = ({ p }) => {
                   dislikePost();
                   setLike((prev) => prev - 1);
                 }}
-                src="asset/heart.jpg"
+                src="/asset/heart.jpg"
                 alt=""
                 className="likeicon"
               />

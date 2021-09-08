@@ -8,9 +8,6 @@ import { AuthContext } from "../context/AuthContext";
 function Feed({ id }) {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
-  useEffect(() => {
-    getPost();
-  }, [id, user.user.ID]);
 
   const getPost = async () => {
     try {
@@ -31,6 +28,9 @@ function Feed({ id }) {
       console.log(err);
     }
   };
+  useEffect(() => {
+    getPost();
+  }, [id, user.user.ID]);
 
   return (
     <div className="feed">

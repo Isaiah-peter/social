@@ -77,13 +77,14 @@
 .following {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin: 0 3px;
 }
 
 .followingdetail {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -108,10 +109,31 @@
   padding: 5px 10px;
   display: flex;
   align-items: center;
-  font-weight: 500px;
+  font-weight: 500;
   font-size: 16px;
   cursor: pointer;
 }
 .rightBarfollowbutton:focus {
   outline: none;
+}
+
+.profilebuttons {
+  display: flex;
+  align-items: center;
+}
+
+.messagebutton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(230, 230, 230);
+  border: none;
+  color: black;
+  border-radius: 5px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
 }
