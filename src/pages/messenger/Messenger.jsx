@@ -14,7 +14,7 @@ const Messenger = () => {
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [newMessage, setNewMessage] = useState("");
-  const [arriverMesage, setArriverMesage] = useState(null);
+  const [arriverMesage, setArriverMesage] = useState("");
   const socket = useRef();
   const [messages, setMessages] = useState([]);
   const { user } = useContext(AuthContext);
@@ -70,7 +70,6 @@ const Messenger = () => {
   }, [arriverMesage, currentChat]);
 
   useEffect(() => {
-    socket.current.emit("addUser", user.user.ID);
     socket.current.on("getUsers", (users) => {
       setOnlineUser(
         follower.filter((f) => users.some((u) => u.userId === f.ID))

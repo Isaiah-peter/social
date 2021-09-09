@@ -101,7 +101,7 @@ function Profile() {
           </div>
           <div className="profilebottom">
             <Feed id={param.id} />
-            <Rightbar user={users} follower={follower} />
+            <Rightbar id={id} user={users} follower={follower} />
           </div>
         </div>
       </div>
