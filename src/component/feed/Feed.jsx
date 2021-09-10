@@ -12,7 +12,9 @@ function Feed({ id }) {
   const getPost = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/timeline/${id ? id : user.user.ID}`,
+        `http://localhost:8000/getalltimeline?username=${
+          id ? id : user.user.username
+        }`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

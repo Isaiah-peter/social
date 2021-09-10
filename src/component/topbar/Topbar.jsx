@@ -50,7 +50,7 @@ function Topbar() {
           </div>
         </div>
         <div className="logoutplace">
-          <Link to={{ pathname: `profile/${user.user.ID}` }}>
+          <Link to={{ pathname: `/profile/${user.user.username}` }}>
             <img
               src={user.user.profilepicture || "/asset/noAvatar.png"}
               alt="user"
@@ -61,7 +61,6 @@ function Topbar() {
           <button className="logout" onClick={handleLogout}>
             logout
           </button>
-         
         </div>
       </div>
     </div>

@@ -130,7 +130,7 @@ const ProfileRightBar = ({ user, follower, id }) => {
             onChange={(e) => setRelationship(e.target.value)}
           />
           <div className="buttonstoedit">
-            <a href={`/profile/${id}`} className="cancelbutton">
+            <a href={`/profile?username=${id}`} className="cancelbutton">
               cancel
             </a>
             <button className="submitbutton" onClick={editHandler}>
@@ -143,7 +143,7 @@ const ProfileRightBar = ({ user, follower, id }) => {
       <div className="following">
         {follower.map((f) => {
           return (
-            <Link to={`/profile/${f.ID}`} className="link">
+            <Link to={`/profile/${f.username}`} className="link">
               <div key={f.ID} className="followingdetail">
                 <img
                   src={

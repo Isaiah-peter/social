@@ -76,13 +76,11 @@ function Share() {
     }
   };
 
-  console.log(uploaded);
-
   return (
     <div className="share">
       <div className="wrapper">
         <div className="top">
-          <Link to={`profile/${user.user.ID}`}>
+          <Link to={`profile/${user.user.username}`}>
             <img
               src={user.user.profilepicture || "/asset/noAvatar.png"}
               alt=""

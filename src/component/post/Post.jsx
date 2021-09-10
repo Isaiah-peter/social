@@ -25,7 +25,6 @@ const Post = ({ p }) => {
     }
   };
 
-  console.log(users);
   const likePost = async () => {
     const postid = {
       post_id: p.ID,
@@ -60,7 +59,7 @@ const Post = ({ p }) => {
     <div className="post">
       <div className="wrappers">
         <div className="posttop">
-          <Link to={{ pathname: `/profile/${p.user_id}` }}>
+          <Link to={{ pathname: `/profile/${users.username}` }}>
             <img
               src={
                 users.profilepicture !== ""
