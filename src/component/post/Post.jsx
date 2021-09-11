@@ -24,6 +24,7 @@ const Post = ({ p }) => {
       setUser(res.data);
     }
   };
+
   const likePost = async () => {
     const postid = {
       post_id: p.ID,
@@ -33,7 +34,7 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    setIsLiked(false);
+    setIsLiked(true);
   };
 
   const dislikePost = async () => {
@@ -42,7 +43,7 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    setIsLiked(true);
+    setIsLiked(false);
   };
 
   const getLike = async () => {
@@ -58,7 +59,7 @@ const Post = ({ p }) => {
     <div className="post">
       <div className="wrappers">
         <div className="posttop">
-          <Link to={{ pathname: `/profile/${p.user_id}` }}>
+          <Link to={{ pathname: `/profile/${users.username}` }}>
             <img
               src={
                 users.profilepicture !== ""
@@ -78,32 +79,44 @@ const Post = ({ p }) => {
         </div>
         <div className="postbuttom">
           <div className="left">
-            {isLiked == true ? (
+            {isLiked == false ? (
               <img
-                onClick={likePost}
-                src="asset/like.jpg"
+                onClick={() => {
+                  likePost();
+                  setLike((prev) => prev + 1);
+                }}
+                src="/asset/like.jpg"
                 alt=""
                 className="likeicon"
               />
             ) : (
               <img
-                onClick={dislikePost}
-                src="asset/like.jpg"
+                onClick={() => {
+                  dislikePost();
+                  setLike((prev) => prev - 1);
+                }}
+                src="/asset/like.jpg"
                 alt=""
                 className="likeicon"
               />
             )}
-            {isLiked == true ? (
+            {isLiked == false ? (
               <img
-                onClick={likePost}
-                src="asset/heart.jpg"
+                onClick={() => {
+                  likePost();
+                  setLike((prev) => prev + 1);
+                }}
+                src="/asset/heart.jpg"
                 alt=""
                 className="likeicon"
               />
             ) : (
               <img
-                onClick={dislikePost}
-                src="asset/heart.jpg"
+                onClick={() => {
+                  dislikePost();
+                  setLike((prev) => prev - 1);
+                }}
+                src="/asset/heart.jpg"
                 alt=""
                 className="likeicon"
               />

@@ -37,6 +37,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .chatboxButtom {
@@ -106,4 +107,39 @@
   justify-content: center;
   align-items: center;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.8);
+}
+
+.adduserscontainer {
+  position: absolute;
+  top: 2%;
+  right: 50%;
+}
+
+.adduserbutton {
+  background-color: blue;
+  color: white;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.8);
+  font-size: 16px;
+}
+
+.userfriendlist {
+  list-style: none;
+  visibility: hidden;
+}
+
+.adduserscontainer:hover > .userfriendlist {
+  visibility: visible;
+}
+
+.item {
+  border: 1px solid black;
+  font-size: 12px;
+  padding: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: capitalize;
 }

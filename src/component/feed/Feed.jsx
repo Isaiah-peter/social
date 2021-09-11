@@ -8,14 +8,13 @@ import { AuthContext } from "../context/AuthContext";
 function Feed({ id }) {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
-  useEffect(() => {
-    getPost();
-  }, [id, user.user.ID]);
 
   const getPost = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/timeline/${id ? id : user.user.ID}`,
+        `http://localhost:8000/getalltimeline?username=${
+          id ? id : user.user.username
+        }`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -31,6 +30,9 @@ function Feed({ id }) {
       console.log(err);
     }
   };
+  useEffect(() => {
+    getPost();
+  }, [id, user.user.ID]);
 
   return (
     <div className="feed">

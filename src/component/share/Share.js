@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import "./share.css";
 import { AuthContext } from "../context/AuthContext";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
@@ -10,13 +10,20 @@ function Share() {
   const { user } = useContext(AuthContext);
   const [file, setFile] = useState(null);
   const [uploaded, setUpload] = useState(0);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const [level, setLevel] = useState(null);
 
   const desc = useRef();
 
-  const handleUpload = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (file != null) {
+      handleUpload();
+    }
+  }, [file]);
+
+  console.log(level);
+
+  const handleUpload = () => {
     const metadata = {
       contentType: "image/jpeg",
     };
@@ -58,7 +65,7 @@ function Share() {
     desc.current.value = "";
 
     try {
-      await axios.post("http://192.168.88.156:8000/post", newPost, {
+      await axios.post("http://localhost:8000/post", newPost, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -73,7 +80,7 @@ function Share() {
     <div className="share">
       <div className="wrapper">
         <div className="top">
-          <Link to={`profile/${user.user.ID}`}>
+          <Link to={`profile/${user.user.username}`}>
             <img
               src={user.user.profilepicture || "/asset/noAvatar.png"}
               alt=""
@@ -87,6 +94,9 @@ function Share() {
             }
             ref={desc}
             className="postdescriptions"
+            onChange={() => {
+              setUpload(uploaded + 1);
+            }}
           />
         </div>
         <hr className="shareHr" />
@@ -100,7 +110,9 @@ function Share() {
                 type="file"
                 id="file"
                 accept=".png,.jpg,.jpeg"
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
               />
             </label>
             <div className="options">
@@ -116,17 +128,13 @@ function Share() {
               <span className="optiontext">feelings</span>
             </div>
           </div>
-          {uploaded === 1 ? (
+          {uploaded >= 1 && (
             <button
               className="shareButton"
               onClick={submitHandler}
               type="submit"
             >
               share
-            </button>
-          ) : (
-            <button className="shareButton" onClick={handleUpload}>
-              {level === null ? "uplaod" : `${level}%`}
             </button>
           )}
         </form>

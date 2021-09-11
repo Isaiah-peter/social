@@ -6,8 +6,8 @@ import "./edit.css";
 
 const EditPage = () => {
   const [users, setusers] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
-  const [coverPicture, setCoverPicture] = useState(null);
+  const [profileImage, setProfileImage] = useState("");
+  const [coverPicture, setCoverPicture] = useState("");
   const [uploaded, setUpload] = useState(0);
   const { user } = useContext(AuthContext);
 

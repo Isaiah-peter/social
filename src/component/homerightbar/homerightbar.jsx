@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
-const HomeRightBar = ({ onlineUser, currentId, currentChat }) => {
+const HomeRightBar = ({ onlineUser, home, currentId, currentChat }) => {
   const [friend, setFriend] = useState([]);
   const [onlineFriend, setOnlineFriend] = useState([]);
 
@@ -18,7 +18,7 @@ const HomeRightBar = ({ onlineUser, currentId, currentChat }) => {
 
   const getFollower = async () => {
     const res = await axios.get(
-      `http://192.168.88.156:8000//follower/${currentId}`,
+      `http://localhost:8000//follower/${currentId}`,
       {
         headers: {
           Authorization: `Bearer ${user.token} `,
@@ -34,7 +34,7 @@ const HomeRightBar = ({ onlineUser, currentId, currentChat }) => {
       sender_id: user.user.ID,
     };
     const res = await axios.post(
-      `http://192.168.88.156:8000/addfollowertomessage`,
+      `http://localhost:8000/addfollowertomessage`,
       data,
       {
         headers: {
@@ -53,7 +53,11 @@ const HomeRightBar = ({ onlineUser, currentId, currentChat }) => {
         <ul className="list">
           {onlineUser.map((o) => {
             return (
-              <li className="items" onClick={() => handleClick(o)}>
+              <li
+                aria-disabled={home ? "true" : "false"}
+                className="items"
+                onClick={() => handleClick(o)}
+              >
                 <div className="imageContainer">
                   <img
                     src={o?.profilepicture || "/asset/noAvatar.png"}
