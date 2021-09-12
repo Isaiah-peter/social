@@ -5,6 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 
 function Register() {
   const username = useRef();
+  const name = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
@@ -15,6 +16,7 @@ function Register() {
       passwordAgain.current.setCustomValidity("Password don't match");
     } else {
       const user = {
+        name: name.current.value,
         username: username.current.value,
         email: email.current.value,
         password: password.current.value,
@@ -37,6 +39,13 @@ function Register() {
         </div>
         <div className="loginright">
           <form className="registerinput" onSubmit={handleClick}>
+            <input
+              type="text"
+              required
+              ref={name}
+              className="inputemail"
+              placeholder="Name"
+            />
             <input
               type="text"
               required

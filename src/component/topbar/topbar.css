@@ -118,3 +118,36 @@
 .logoutplace:hover > .logout {
   visibility: visible;
 }
+
+.search {
+  margin-right: 3rem;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  width: 20rem;
+}
+
+.search-list {
+  list-style: none;
+}
+
+.search-list a {
+  text-decoration: none;
+  color: black;
+}
+
+.search-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.r {
+  margin-right: 10px;
+}

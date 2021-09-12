@@ -101,3 +101,33 @@
 .save {
   background-color: #004bd6;
 }
+
+.profilepic {
+  border-radius: 8px;
+  color: #000;
+  background-color: white;
+  padding: 5px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  top: 80%;
+  left: 55%;
+  position: absolute;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cover {
+  border-radius: 8px;
+  color: #000;
+  background-color: white;
+  padding: 5px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  top: 70%;
+  right: 10%;
+  position: absolute;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

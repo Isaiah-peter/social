@@ -4,19 +4,25 @@ import Sidebar from "../../component/sidebar/Sidebar";
 import Topbar from "../../component/topbar/Topbar";
 import "./profile.css";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../component/context/AuthContext";
+import { Camera, Update } from "@material-ui/icons";
+import storage from "../../base";
+import { async } from "@firebase/util";
 
 function Profile() {
   const param = useParams();
   const [users, setUser] = useState([]);
   const [follower, setFollower] = useState([]);
   const [desc, setDesc] = useState("");
+  const [profilepic, setProfilePic] = useState("");
+  const [coverphoto, setCoverPhoto] = useState("");
+  const [p, setP] = useState("");
+  const [c, setC] = useState("");
   const { user } = useContext(AuthContext);
 
   const id = param.id;
-  console.log(param);
 
   useEffect(() => {
     getUser();
@@ -25,6 +31,20 @@ function Profile() {
   useEffect(() => {
     getFollower(users.ID);
   }, [users]);
+
+  console.log("picture", p);
+
+  useEffect(() => {
+    if (profilepic != "") {
+      handleUpload();
+    }
+  }, [profilepic]);
+
+  useEffect(() => {
+    if (coverphoto != "") {
+      handleUploadC();
+    }
+  }, [coverphoto]);
 
   const getUser = async () => {
     const res = await axios.get(
@@ -45,6 +65,104 @@ function Profile() {
       },
     });
     setFollower(res.data);
+  };
+
+  const handleUpload = () => {
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+
+    const storageRef = storage.ref(
+      storage.getStorage(),
+      "images/" + Date.now() + profilepic.name
+    );
+    const uploadTask = storage.uploadBytesResumable(
+      storageRef,
+      profilepic,
+      metadata
+    );
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        storage
+          .getDownloadURL(uploadTask.snapshot.ref)
+          .then(async (downloadURL) => {
+            setP(downloadURL);
+            const data = {
+              profilepicture: downloadURL,
+            };
+
+            await axios.put(
+              `http://localhost:8000/user/${user.user.ID}`,
+              data,
+              {
+                headers: {
+                  Authorization: `Bearer ${user.token}`,
+                },
+              }
+            );
+
+            window.location.href = `/profile/${users.username}`;
+          });
+      }
+    );
+  };
+
+  const handleUploadC = () => {
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+
+    const storageRef = storage.ref(
+      storage.getStorage(),
+      "images/" + Date.now() + coverphoto
+    );
+    const uploadTask = storage.uploadBytesResumable(
+      storageRef,
+      coverphoto,
+      metadata
+    );
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        storage
+          .getDownloadURL(uploadTask.snapshot.ref)
+          .then(async (downloadURL) => {
+            setP(downloadURL);
+            const data = {
+              coverpicture: downloadURL,
+            };
+
+            await axios.put(
+              `http://localhost:8000/user/${user.user.ID}`,
+              data,
+              {
+                headers: {
+                  Authorization: `Bearer ${user.token}`,
+                },
+              }
+            );
+
+            window.location.href = `/profile/${users.username}`;
+          });
+      }
+    );
   };
 
   const editHandler = async () => {
@@ -70,15 +188,37 @@ function Profile() {
           <div className="profiletop">
             <div className="profilecover">
               <img
-                src={users.coverpicture}
+                src={users.coverpicture || "/asset/noAvatar.png"}
                 alt="cover"
                 className="profileCoverImg"
               />
               <img
-                src={users.profilepicture}
+                src={users.profilepicture || "/asset/noAvatar.png"}
                 alt="cover"
                 className="profileUserImg"
               />
+              {user.user.ID === users.ID && (
+                <>
+                  <label htmlFor="profilepicture" className="profilepic">
+                    <Camera />
+                  </label>
+                  <input
+                    type="file"
+                    id="profilepicture"
+                    onChange={(e) => setProfilePic(e.target.files[0])}
+                    hidden
+                  />
+                  <label htmlFor="coverphoto" className="cover">
+                    <Update /> Cover Photo
+                  </label>
+                  <input
+                    type="file"
+                    id="coverphoto"
+                    hidden
+                    onChange={(e) => setCoverPhoto(e.target.files[0])}
+                  />
+                </>
+              )}
             </div>
             <div className="profileinfo">
               <h4 className="profileinfoname">{users.username}</h4>
