@@ -82,11 +82,6 @@
 .covr {
   width: 20%;
   margin: auto auto;
-  display: none;
-}
-
-.editpage:hover > .covr {
-  display: block;
 }
 
 .btn {

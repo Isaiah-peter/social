@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../component/context/AuthContext";
 import { Camera, Update } from "@material-ui/icons";
 import storage from "../../base";
-import { async } from "@firebase/util";
 
 function Profile() {
   const param = useParams();
@@ -18,9 +17,8 @@ function Profile() {
   const [desc, setDesc] = useState("");
   const [profilepic, setProfilePic] = useState("");
   const [coverphoto, setCoverPhoto] = useState("");
-  const [p, setP] = useState("");
-  const [c, setC] = useState("");
   const { user } = useContext(AuthContext);
+  const [model, setModel] = useState(false);
 
   const id = param.id;
 
@@ -31,8 +29,6 @@ function Profile() {
   useEffect(() => {
     getFollower(users.ID);
   }, [users]);
-
-  console.log("picture", p);
 
   useEffect(() => {
     if (profilepic != "") {
@@ -95,7 +91,6 @@ function Profile() {
         storage
           .getDownloadURL(uploadTask.snapshot.ref)
           .then(async (downloadURL) => {
-            setP(downloadURL);
             const data = {
               profilepicture: downloadURL,
             };
@@ -144,7 +139,6 @@ function Profile() {
         storage
           .getDownloadURL(uploadTask.snapshot.ref)
           .then(async (downloadURL) => {
-            setP(downloadURL);
             const data = {
               coverpicture: downloadURL,
             };
@@ -176,7 +170,7 @@ function Profile() {
       },
     });
 
-    window.location.href = `http://localhost:3000/profile/${user.user.username}`;
+    setModel(!model);
   };
 
   return (
@@ -221,26 +215,35 @@ function Profile() {
               )}
             </div>
             <div className="profileinfo">
-              <h4 className="profileinfoname">{users.username}</h4>
+              <h4 className="profileinfoname">{users.name}</h4>
               <h6 className="profileinfodesc">{users.description}</h6>
-              {user.user.username === user.user.username && (
+              {user.user.username === users.username && (
                 <div className="editpage">
-                  <button className="editdesc">edit</button>
-                  <div className="covr">
-                    <div className="editarea">
-                      <textarea
-                        className="descinput"
-                        maxLength={130}
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                      ></textarea>
-                      <div className="editbuttoncontainer">
-                        <button className="save btn" onClick={editHandler}>
-                          save
-                        </button>
+                  <button
+                    className="editdesc"
+                    onClick={() => {
+                      setModel(!model);
+                    }}
+                  >
+                    edit
+                  </button>
+                  {model && (
+                    <div className="covr">
+                      <div className="editarea">
+                        <textarea
+                          className="descinput"
+                          maxLength={130}
+                          value={desc}
+                          onChange={(e) => setDesc(e.target.value)}
+                        ></textarea>
+                        <div className="editbuttoncontainer">
+                          <button className="save btn" onClick={editHandler}>
+                            save
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>

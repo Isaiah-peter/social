@@ -56,10 +56,6 @@ const Messenger = () => {
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
-  }, []);
-
-  useEffect(() => {
-    arriverMesage && setMessages((prev) => [...prev, arriverMesage]);
     socket.current.on("getMessage", (data) => {
       setArriverMesage({
         sender: data.senderId,
@@ -67,9 +63,21 @@ const Messenger = () => {
         CreatedAt: Date.now(),
       });
     });
+  }, []);
+
+  useEffect(() => {
+    if (arriverMesage) {
+      if (
+        currentChat.recieve_id === arriverMesage.sender ||
+        currentChat.sender_id === arriverMesage.sender
+      ) {
+        setMessages((prev) => [...prev, arriverMesage]);
+      }
+    }
   }, [arriverMesage, currentChat]);
 
   useEffect(() => {
+    socket.current.emit("addUser", user.user.ID);
     socket.current.on("getUsers", (users) => {
       setOnlineUser(
         follower.filter((f) => users.some((u) => u.userId === f.ID))
