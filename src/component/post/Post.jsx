@@ -68,8 +68,6 @@ const Post = ({ p }) => {
     setComment(res.data);
   };
 
-  console.log(comments);
-
   const handleComment = async (e) => {
     e.preventDefault();
     const data = {

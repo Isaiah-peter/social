@@ -36,11 +36,8 @@ function Home() {
     socket.current.emit("addUser", user.user.ID);
     socket.current.on("getUsers", (users) => {
       setUsers(follower.filter((f) => users.some((u) => u.userId === f.ID)));
-      console.log(users);
     });
   }, [follower]);
-
-  console.log(users);
 
   return (
     <>

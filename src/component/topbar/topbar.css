@@ -151,3 +151,25 @@
 .r {
   margin-right: 10px;
 }
+
+.notificationContainer {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  width: 20rem;
+  max-height: 100vh;
+  overflow-y: scroll;
+  padding: 10px;
+  color: black;
+  background-color: #fff;
+  box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.notlist {
+  list-style: none;
+}
+
+.notitem {
+  padding: 10px;
+}

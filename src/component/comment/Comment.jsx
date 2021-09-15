@@ -10,8 +10,6 @@ export const Comment = ({ c }) => {
     CommentedUser();
   }, [c]);
 
-  console.log(users);
-
   const CommentedUser = async () => {
     const res = await axios.get(`http://localhost:8000/user/${c.user_id}`, {
       headers: {

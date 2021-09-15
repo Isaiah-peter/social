@@ -68,7 +68,6 @@ const ProfileRightBar = ({ user, follower, id }) => {
         Authorization: `Bearer ${currentUser.token}`,
       },
     });
-
     setDone(!done);
   };
 
