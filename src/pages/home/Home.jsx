@@ -37,7 +37,7 @@ function Home() {
     socket.current.on("getUsers", (users) => {
       setUsers(follower.filter((f) => users.some((u) => u.userId === f.ID)));
     });
-  }, []);
+  }, [follower]);
 
   return (
     <>

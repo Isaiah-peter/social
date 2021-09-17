@@ -23,7 +23,8 @@ const Messenger = () => {
   const [groupchat, setGroupChat] = useState(false);
   const [onlineUser, setOnlineUser] = useState([]);
   const [follower, setFollower] = useState([]);
-  const [groupIdentify, setGroupIdentify] = useState([]);
+  const [groupInput, setGroupInput] = useState("");
+  const [create, setCreate] = useState(false);
 
   useEffect(() => {
     getgroup();
@@ -56,10 +57,6 @@ const Messenger = () => {
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
-  }, []);
-
-  useEffect(() => {
-    arriverMesage && setMessages((prev) => [...prev, arriverMesage]);
     socket.current.on("getMessage", (data) => {
       setArriverMesage({
         sender: data.senderId,
@@ -67,9 +64,21 @@ const Messenger = () => {
         CreatedAt: Date.now(),
       });
     });
+  }, []);
+
+  useEffect(() => {
+    if (arriverMesage) {
+      if (
+        currentChat.recieve_id === arriverMesage.sender ||
+        currentChat.sender_id === arriverMesage.sender
+      ) {
+        setMessages((prev) => [...prev, arriverMesage]);
+      }
+    }
   }, [arriverMesage, currentChat]);
 
   useEffect(() => {
+    socket.current.emit("addUser", user.user.ID);
     socket.current.on("getUsers", (users) => {
       setOnlineUser(
         follower.filter((f) => users.some((u) => u.userId === f.ID))
@@ -115,6 +124,30 @@ const Messenger = () => {
         }
       );
       setMessages(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateGroup = async () => {
+    const data = {
+      nameofgroup: groupInput,
+    };
+    try {
+      if (groupInput !== "") {
+        await axios.post(
+          `http://localhost:8000/group`,
+          data,
+
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setCreate(!create);
+        getgroup();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -235,6 +268,7 @@ const Messenger = () => {
               className="searchfriend"
             />
             <div className="conversationpart">
+              <h1 className="name">conversations</h1>
               {conversation.map((c) => {
                 return (
                   <div
@@ -250,6 +284,26 @@ const Messenger = () => {
               })}
             </div>
             <div className="grouppart">
+              <h1 className="name">Group</h1>
+              <button
+                className="creategroupchat"
+                onClick={() => setCreate(!create)}
+              >
+                Create group chat
+              </button>
+              {create && (
+                <div className="groupchatinputscontainer">
+                  <input
+                    type="text"
+                    className="groupchatinput"
+                    onChange={(e) => setGroupInput(e.target.value)}
+                    placeholder=" Create a new group chat"
+                  />
+                  <button className="createbutton" onClick={handleCreateGroup}>
+                    Create
+                  </button>
+                </div>
+              )}
               {group.map((g) => {
                 return (
                   <Groupowned

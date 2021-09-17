@@ -2,7 +2,7 @@ import HomeRightBar from "../homerightbar/homerightbar";
 import ProfileRightBar from "../profilerightbar/profilerightbar";
 import "./rightbar.css";
 
-function Rightbar({ id, users, user, follower, currentId }) {
+function Rightbar({ id, users, user, follower, currentId, getUser }) {
   return (
     <div className="rightbar">
       <div className="rightwrapper">

@@ -31,7 +31,6 @@ export const Conversations = ({ conversation, follower }) => {
     }
   };
 
-  console.log(fe);
   const handleFollowed = async (users) => {
     const data = {
       follower_id: users.ID,

@@ -41,8 +41,8 @@
 }
 
 .messageusername {
-  font-size: 10px;
-  font-weight: 300;
+  font-size: 13px;
+  font-weight: 600;
   width: 70px;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }

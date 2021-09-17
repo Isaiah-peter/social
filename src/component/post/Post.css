@@ -68,3 +68,47 @@
 .peoplethatlike {
   font-size: 15px;
 }
+
+.likeandcommentcount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  width: 100%;
+}
+
+.comments {
+  max-height: 300px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.line {
+  margin-top: 10px;
+}
+
+.commenttop {
+  display: block;
+}
+
+.commenttext {
+  background-color: #ececec !important ;
+  color: black !important;
+}
+
+.commentbottom {
+  margin-top: 10px;
+  width: 99%;
+}
+
+.commentinput {
+  width: 95%;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: #ececec;
+}
+.commentinput:focus {
+  outline: none;
+}

@@ -80,7 +80,7 @@ function Share() {
     <div className="share">
       <div className="wrapper">
         <div className="top">
-          <Link to={`profile/${user.user.username}`}>
+          <Link to={{ pathname: `/profile/${user.user.username}` }}>
             <img
               src={user.user.profilepicture || "/asset/noAvatar.png"}
               alt=""

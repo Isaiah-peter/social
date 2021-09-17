@@ -158,10 +158,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  visibility: hidden;
-}
-.PopupEditInfo:target {
   opacity: 1;
   visibility: visible;
 }

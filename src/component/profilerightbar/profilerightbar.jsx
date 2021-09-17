@@ -10,6 +10,7 @@ const ProfileRightBar = ({ user, follower, id }) => {
   const [city, setCity] = useState("");
   const [town, setTown] = useState("");
   const [relationship, setRelationship] = useState("");
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     setFollowed(follower.includes(user?.ID));
@@ -67,8 +68,7 @@ const ProfileRightBar = ({ user, follower, id }) => {
         Authorization: `Bearer ${currentUser.token}`,
       },
     });
-
-    window.location.href = `http://localhost:3000/profile/${id}`;
+    setDone(!done);
   };
 
   return (
@@ -91,7 +91,12 @@ const ProfileRightBar = ({ user, follower, id }) => {
       )}
       <h4 className="rightbartitle">User information</h4>
       {currentUser.user.username === user.username && (
-        <a href="#popup" className="popupedit">
+        <a
+          onClick={() => {
+            setDone(!done);
+          }}
+          className="popupedit"
+        >
           edit
         </a>
       )}
@@ -109,36 +114,43 @@ const ProfileRightBar = ({ user, follower, id }) => {
           <span className="infovalue">{user.relationship}</span>
         </div>
       </div>
-      <div id="popup" className="PopupEditInfo">
-        <div className="content">
-          <input
-            type="text"
-            placeholder="city..."
-            onChange={(e) => setCity(e.target.value)}
-            className="edittextinput"
-          />
-          <input
-            type="text"
-            placeholder="town..."
-            onChange={(e) => setTown(e.target.value)}
-            className="edittextinput"
-          />
-          <input
-            type="text"
-            placeholder="relationship..."
-            className="edittextinput"
-            onChange={(e) => setRelationship(e.target.value)}
-          />
-          <div className="buttonstoedit">
-            <a href={`/profile?username=${id}`} className="cancelbutton">
-              cancel
-            </a>
-            <button className="submitbutton" onClick={editHandler}>
-              save
-            </button>
+      {done && (
+        <div id="popup" className="PopupEditInfo">
+          <div className="content">
+            <input
+              type="text"
+              placeholder="city..."
+              onChange={(e) => setCity(e.target.value)}
+              className="edittextinput"
+            />
+            <input
+              type="text"
+              placeholder="town..."
+              onChange={(e) => setTown(e.target.value)}
+              className="edittextinput"
+            />
+            <input
+              type="text"
+              placeholder="relationship..."
+              className="edittextinput"
+              onChange={(e) => setRelationship(e.target.value)}
+            />
+            <div className="buttonstoedit">
+              <a
+                onClick={() => {
+                  setDone(!done);
+                }}
+                className="cancelbutton"
+              >
+                cancel
+              </a>
+              <button className="submitbutton" onClick={editHandler}>
+                save
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <h4 className="rightbartitle">User Friend</h4>
       <div className="following">
         {follower.map((f) => {
