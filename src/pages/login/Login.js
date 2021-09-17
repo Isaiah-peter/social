@@ -51,13 +51,12 @@ function Login() {
             >
               Logins
             </button>
-            <Link to="/register" className="link">
-              <button
-                onClick={() => console.log("working")}
-                className="register"
-              >
-                Create Another account
-              </button>
+            <Link
+              to="/register"
+              onClick={() => console.log("working")}
+              className="register"
+            >
+              Create New Account
             </Link>
           </form>
         </div>

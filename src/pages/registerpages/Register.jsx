@@ -78,12 +78,9 @@ function Register() {
             <button className="loginbutton" type="submit">
               Sign Up
             </button>
-
-            <button className="register" type="button">
-              <Link to="/login" className="link">
-                Login
-              </Link>
-            </button>
+            <Link className="register" to="/login">
+              Login
+            </Link>
           </form>
         </div>
       </div>

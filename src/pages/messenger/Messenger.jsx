@@ -134,17 +134,20 @@ const Messenger = () => {
       nameofgroup: groupInput,
     };
     try {
-      await axios.post(
-        `http://localhost:8000/group`,
-        data,
+      if (groupInput !== "") {
+        await axios.post(
+          `http://localhost:8000/group`,
+          data,
 
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      setCreate(!create);
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setCreate(!create);
+        getgroup();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -286,7 +289,7 @@ const Messenger = () => {
                 className="creategroupchat"
                 onClick={() => setCreate(!create)}
               >
-                Create a new group chat
+                Create group chat
               </button>
               {create && (
                 <div className="groupchatinputscontainer">
@@ -294,6 +297,7 @@ const Messenger = () => {
                     type="text"
                     className="groupchatinput"
                     onChange={(e) => setGroupInput(e.target.value)}
+                    placeholder=" Create a new group chat"
                   />
                   <button className="createbutton" onClick={handleCreateGroup}>
                     Create
