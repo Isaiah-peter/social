@@ -17,6 +17,7 @@ import EditPage from "./component/edit/Editprofilepage";
 function App() {
   const { user } = useContext(AuthContext);
   console.log(user);
+  process.env.CI = false;
   return (
     <Router>
       <Switch>
