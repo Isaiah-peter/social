@@ -14,7 +14,7 @@ const Messenger = () => {
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [newMessage, setNewMessage] = useState("");
-  const [arriverMesage, setArriverMesage] = useState("");
+  const [arriverMesage, setArriverMesage] = useState(null);
   const socket = useRef();
   const [messages, setMessages] = useState([]);
   const { user } = useContext(AuthContext);
@@ -56,7 +56,7 @@ const Messenger = () => {
   };
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://social-ground-chat.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
       setArriverMesage({
         sender: data.senderId,
