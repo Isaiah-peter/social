@@ -29,6 +29,10 @@ const Post = ({ p }) => {
     }
   };
 
+  useEffect(() => {
+    setIsLiked(p.Like.find((l) => l.user_id === user.user.ID));
+  }, [user.user.ID, p.Like]);
+
   const likePost = async () => {
     const postid = {
       post_id: p.ID,
@@ -38,7 +42,7 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    setIsLiked(true);
+    setIsLiked(!isLiked);
   };
 
   const dislikePost = async () => {
@@ -47,7 +51,7 @@ const Post = ({ p }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    setIsLiked(false);
+    setIsLiked(!isLiked);
   };
 
   const getLike = async () => {
@@ -85,6 +89,8 @@ const Post = ({ p }) => {
       setText("");
     }
   };
+
+  console.log(isLiked);
 
   return (
     <div className="post">
