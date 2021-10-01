@@ -18,7 +18,7 @@ function Home() {
 
   useEffect(() => {
     getFollower();
-    socket.current = io("ws://social-ground-chat.herokuapp.com/");
+    socket.current = io("https://social-ground-chat.herokuapp.com/");
   }, []);
   const getFollower = async () => {
     const res = await axios.get(
