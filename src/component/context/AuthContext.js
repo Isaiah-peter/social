@@ -7,6 +7,11 @@ const INITAL_STATE = {
   error: false,
 };
 
+window.setTimeout(() => {
+  localStorage.clear();
+  window.location.replace("http://localhost:3000/");
+}, 600000);
+
 export const AuthContext = createContext(INITAL_STATE);
 
 export const AuthContextProvider = ({ children }) => {

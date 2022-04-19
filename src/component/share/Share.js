@@ -25,7 +25,7 @@ function Share() {
 
   const handleUpload = () => {
     const metadata = {
-      contentType: "image/jpeg",
+      contentType: "image/jpeg" || "image/jpg" || "image/png",
     };
 
     const storageRef = storage.ref(
